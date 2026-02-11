@@ -1,0 +1,741 @@
+/* =========================================
+   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS
+   ========================================= */
+:root {
+    --bg-body: #050505;
+    --bg-card: #121212;
+    --dourado: #D4AF37;
+    --dourado-brilho: #F4C430;
+    --texto-principal: #ffffff;
+    --texto-secundario: #a0a0a0;
+    --vermelho: #ff4757;
+    --sucesso: #2ed573;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: var(--bg-body);
+    background-image: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.1), transparent 60%);
+    color: var(--texto-principal);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container Principal Centralizado */
+.container {
+    min-height: 80vh;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    flex: 1; /* Empurra o footer para baixo */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente se pouco conteúdo */
+}
+
+/* CLASSE HIDDEN PADRÃO (Para elementos que não são o modal) */
+.hidden {
+    display: none !important;
+}
+
+/* =========================================
+   2. HEADER E LOGO
+   ========================================= */
+header, .header-auth {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.header-top.centered {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.icon-logo, .icon-logo-grande {
+    font-size: 2.5rem;
+    color: var(--dourado);
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+h1 span {
+    color: var(--dourado);
+}
+
+.subtitle, .header-auth p {
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+/* =========================================
+   3. CARDS E BOXES (AGENDAMENTO E LOGIN)
+   ========================================= */
+.lista-cortes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.card, .auth-box {
+    background: rgba(18, 18, 18, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    width: 100%;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Estilo específico do Login Box */
+.auth-box {
+    padding: 40px 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border-color: rgba(224, 195, 106, 0.2);
+    text-align: center;
+}
+
+/* Container específico para Login para centralizar */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    flex: 1; /* Ocupa espaço para centralizar verticalmente no body flex */
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    padding: 20px; /* Garante margem em telas pequenas */
+}
+
+/* Estilo Específico dos Cards de Agendamento */
+.card.open {
+    border-color: var(--dourado);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.card-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.info-corte {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.info-corte p {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.info-corte .preco {
+    color: var(--dourado);
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.icone-seta {
+    transition: transform 0.3s;
+    font-size: 1.2rem;
+    color: var(--texto-secundario);
+}
+
+.card.open .icone-seta {
+    transform: rotate(180deg);
+    color: var(--dourado);
+}
+
+.card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.card.open .card-body {
+    max-height: 1000px;
+}
+
+.conteudo {
+    padding: 0 20px 25px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.section-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-secundario);
+    margin: 20px 0 10px;
+    text-align: left;
+}
+
+/* =========================================
+   4. COMPONENTES (BARBEIROS, INPUTS, ETC)
+   ========================================= */
+/* Barbeiros */
+.barbeiros {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.barbeiro-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 15px 6px 6px;
+    background: #222;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+
+.barbeiro-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #333;
+}
+
+.barbeiro-chip.selecionado {
+    background: var(--dourado);
+    color: #000;
+    border-color: var(--dourado);
+    font-weight: bold;
+}
+
+.barbeiro-chip.selecionado .barbeiro-img {
+    border-color: #000;
+}
+
+/* Inputs Gerais */
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dourado);
+    font-size: 1.2rem;
+    z-index: 10;
+}
+
+input {
+    width: 100%;
+    padding: 14px 14px 14px 45px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    outline: none;
+    font-size: 0.95rem;
+    font-family: 'Segoe UI', sans-serif;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: var(--dourado);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+input[type="date"] {
+    color-scheme: dark;
+    padding-left: 14px; /* Data não tem ícone, remove padding extra */
+}
+
+/* Horários */
+.horarios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    background: #222;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.time-slot:hover {
+    border-color: var(--dourado);
+}
+
+.time-slot.selecionado {
+    background: var(--dourado);
+    color: #000;
+    font-weight: bold;
+}
+
+.time-slot.indisponivel {
+    opacity: 0.3;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+/* =========================================
+   5. MODAL E TOAST (COM ANIMAÇÃO DE SAÍDA)
+   ========================================= */
+
+/* Fundo Escuro do Modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-box{
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    
+    /* ESTADO VISÍVEL (Padrão) */
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    
+    /* A curva mágica (bouncy suave estilo Apple) */
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* O QUE ACONTECE QUANDO FECHA (.hidden) */
+.modal.hidden .modal-box {
+    /* Quando fecha, ele desce um pouco e diminui */
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+}
+
+/* Ícones e Botões do Modal */
+.icon-confirm {
+    font-size: 3.5rem;
+    color: var(--dourado);
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn.confirmar {
+    background: var(--dourado);
+    color: #050505;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+.btn.confirmar:hover {
+    background: var(--dourado-brilho);
+    transform: translateY(-2px);
+}
+
+.btn.cancelar {
+    background: transparent;
+    color: var(--texto-secundario);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.btn.cancelar:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+.form-cliente { margin-top: 20px; text-align: left; }
+.form-cliente label { color: #aaa; font-size: 0.8rem; margin-bottom: 8px; display: block; }
+
+/* TOAST (Notificações) */
+.toast-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.toast {
+    background: #222;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    
+    /* Animação do Toast (Entrada) */
+    animation: toastSlideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast.erro { border-left: 4px solid var(--vermelho); }
+.toast.sucesso { border-left: 4px solid var(--sucesso); }
+
+@keyframes toastSlideDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================================
+   6. RODAPÉ WIDE (COM LOGO CENTRAL)
+   ========================================= */
+footer {
+    width: 100%;
+    background: #080808; /* Fundo bem escuro */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px 40px; /* Padding generoso */
+    margin-top: auto; /* Empurra para o final */
+    position: relative;
+    z-index: 10;
+}
+
+.footer-container-wide {
+
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* BLOCO 1 (ESQUERDA): Informações de Contato */
+.footer-left-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+    flex: 1;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+}
+
+.info-item i {
+    color: var(--dourado);
+    font-size: 1.2rem;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* BLOCO 2 (CENTRO): Logo e Nome */
+.footer-middle-logo {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-area-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-logo-footer {
+    font-size: 2rem;
+    color: var(--dourado);
+}
+
+.footer-middle-logo h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #fff;
+    font-weight: 700;
+}
+
+.footer-middle-logo h2 span {
+    color: var(--dourado);
+}
+
+/* BLOCO 3 (DIREITA): Ícones e Links */
+.footer-right-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    text-align: right;
+    flex: 1;
+}
+
+.footer-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-icons a {
+    color: var(--texto-secundario);
+    text-decoration: none;
+}
+
+.footer-icons a i {
+    font-size: 1.8rem;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.footer-icons a:hover i {
+    color: var(--dourado);
+    transform: translateY(-3px);
+}
+
+.footer-right-nav p {
+    color: var(--texto-secundario);
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.admin-link {
+    color: var(--texto-secundario);
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.admin-link:hover {
+    color: var(--dourado);
+    border-color: var(--dourado);
+}
+
+/* Links do Login (Esqueci Senha, etc) */
+.actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    margin-bottom: 25px;
+    color: var(--texto-secundario);
+}
+
+.actions-row a, .footer-auth a {
+    color: var(--dourado);
+    text-decoration: none;
+}
+
+.footer-auth {
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* MEDIA QUERIES (RESPONSIVIDADE) */
+@media (max-width: 768px) {
+    /* No celular, empilha o rodapé e centraliza tudo */
+    .footer-container-wide {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    
+    .footer-left-info, .footer-right-nav {
+        align-items: center;
+        text-align: center;
+    }
+
+    .header-top h1 { font-size: 1.5rem; }
+    .horarios-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 768px) {
+    /* No Desktop, container com sombra e fundo leve */
+    .container {
+        /* Se for a home de agendamento, aplica fundo */
+        background-color: rgba(20, 20, 20, 0.3);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        margin-top: 30px;
+        margin-bottom: 30px;
+        max-width: 500px;
+    }
+
+    /* Na tela de login, o container deve ser transparente para não conflitar com a caixa */
+    .auth-container {
+        background: transparent;
+        box-shadow: none;
+        border: none;
+        margin: 0 auto;
+        padding: 0;
+    }
+}
+
+/* =========================================
+   9. ESTILOS DO MODAL "INTERESSANTE" (INGRESSO)
+   ========================================= */
+
+/* O "Ingresso" de resumo */
+.ticket-resumo {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: left;
+    position: relative;
+}
+
+/* Detalhes do ticket */
+.ticket-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #ccc;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 5px;
+}
+.ticket-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.ticket-row span:last-child {
+    color: var(--dourado);
+    font-weight: bold;
+}
+
+/* Ícone animado de sucesso */
+.success-animation {
+    font-size: 4rem;
+    color: var(--sucesso);
+    margin-bottom: 10px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Botão do WhatsApp Especial */
+.btn-whatsapp {
+    background: #25D366; /* Verde oficial do Zap */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1rem;
+    margin-top: 10px;
+    text-decoration: none; /* Remove sublinhado */
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn-whatsapp:hover {
+    background: #1ebc57;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+}
+/* =========================================
+   10. ÍCONE DE MOSTRAR SENHA (OLHO)
+   ========================================= */
+
+/* Ajuste para o texto não bater no ícone do olho */
+.input-group input {
+    padding-right: 45px; 
+}
+
+/* Estilo do ícone do olho */
+.input-group .toggle-pass {
+    position: absolute;
+    right: 15px; /* Fica na direita */
+    left: auto;  /* Anula o padrão do ícone da esquerda */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--texto-secundario);
+    font-size: 1.2rem;
+    z-index: 10;
+    transition: color 0.3s;
+}
+
+.input-group .toggle-pass:hover {
+    color: var(--dourado);
+}
