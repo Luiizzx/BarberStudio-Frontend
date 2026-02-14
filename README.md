@@ -14,10 +14,16 @@ Faça a instalação normal e, no terminal, digite:
 
 Acesse a pasta onde clonou o repositório pelo terminal e digite:
 
->npm install
+> npm install
+
+Você pode remover as pastas "public" e "src" geradas pelo comando. Elas serão substituídas pelas do projeto.
 
 E depois:
 
->npm run dev
+> npm run dev
 
 Você pode visualizar a aplicação clicando no link que aparece no CMD, onde a aplicação está rodando.
+
+Visite o arquivo "App.jsx" para visualizar as rotas da aplicação. Basta adicionar a rota à porta para visualizar a página daquela porta. Ex:
+
+> localhost:5713/login
